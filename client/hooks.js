@@ -1,3 +1,5 @@
+import { Tracker } from 'meteor/tracker'
+
 /////////////////
 // LOGIN HOOKS //
 /////////////////
@@ -89,7 +91,7 @@ Meteor.startup(function() {
     Accounts._callHooksLogin.apply(this, []);
   }
 
-  Meteor.autorun(function() {
+  Tracker.autorun(function() {
 
     var user_after = Meteor.user() || {};
     (function(u_before, u_after) {
