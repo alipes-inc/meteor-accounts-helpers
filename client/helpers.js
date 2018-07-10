@@ -1,16 +1,16 @@
+import { Meteor } from 'meteor/meteor';
+
 var cap = function(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 var getAccountsUiOptions = function(provider) {
-
   var options = {};
   for (var key in Accounts.ui._options) {
     var option = Accounts.ui._options[key];
     if (_.isObject(option) && option[provider]) options[key] = option[provider];
   }
   return options;
-
 };
 
 Template.body.events({

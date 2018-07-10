@@ -6,7 +6,6 @@ Package.describe({
 });
 
 var packages = [
-  'ecmascript@0.1.5',
   'check@1.0.6',
   'accounts-base@1.2.1',
   'accounts-ui@1.1.6',
