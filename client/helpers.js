@@ -1,5 +1,3 @@
-import { Meteor } from 'meteor/meteor';
-
 var cap = function(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
