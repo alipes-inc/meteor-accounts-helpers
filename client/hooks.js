@@ -1,6 +1,6 @@
-// ///////////////
+/////////////////
 // LOGIN HOOKS //
-// ///////////////
+/////////////////
 
 Accounts._hooksLogin = Accounts._hooksLogin || [];
 
@@ -16,9 +16,9 @@ Accounts._callHooksLogin = function() {
   });
 };
 
-// ////////////////
+//////////////////
 // LOGOUT HOOKS //
-// ////////////////
+//////////////////
 
 Accounts._hooksLogout = Accounts._hooksLogout || [];
 
@@ -34,9 +34,9 @@ Accounts._callHooksLogout = function() {
   });
 };
 
-// ///////////////////
+/////////////////////
 // CONNECTED HOOKS //
-// ///////////////////
+/////////////////////
 
 Accounts._hooksConnect = Accounts._hooksConnect || [];
 
@@ -52,9 +52,9 @@ Accounts._callHooksConnect = function(provider) {
   });
 };
 
-// //////////////////////
+////////////////////////
 // DISCONNECTED HOOKS //
-// //////////////////////
+////////////////////////
 
 Accounts._hooksDisconnect = Accounts._hooksDisconnect || [];
 
@@ -70,27 +70,30 @@ Accounts._callHooksDisconnect = function(provider) {
   });
 };
 
-// /////////////////////
+///////////////////////
 // DISCONNECT METHOD //
-// /////////////////////
+///////////////////////
 
 Accounts.disconnect = function(provider, cb) {
   Meteor.call('accounts.disconnect', provider, cb);
 };
 
-// ///////////////////
+/////////////////////
 // EVENTS TRACKING //
-// ///////////////////
+/////////////////////
 
 Meteor.startup(function() {
+
   var user_before = Meteor.user() || {};
   if (user_before._id) {
     Accounts._callHooksLogin.apply(this, []);
   }
 
   Tracker.autorun(function() {
+
     var user_after = Meteor.user() || {};
     (function(u_before, u_after) {
+
       if (u_after === u_before) return;
 
       var loggedIn = ((_.keys(u_after).length) && (!_.keys(u_before).length));
@@ -108,7 +111,10 @@ Meteor.startup(function() {
 
       var removed = _.difference(services_before, services_after);
       if (removed.length === 1) return Accounts._callHooksDisconnect(removed[0]);
+
     })(user_before, user_after);
     user_before = user_after;
+
   });
+
 });
